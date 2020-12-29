@@ -1,69 +1,45 @@
-import React, { Component } from 'react'
+import React from 'react';
 
-class App extends Component {
- /* constructor() {
-    super()
-    this.state = {}
-    this.clickHandler = this.clickHandler.bind(this)
+import AddUser from './components/AddUser'
+import UserList from './components/UserList'
 
-    
-  } */
-
-
-
-  state={
-    name: "Feyyaz Yılmaz",
-    state: "offline"
+class App extends React.Component {
+  state = {
+    idx: 4,
+    users: [
+      { name: "Mehmet", state: "online", id: 1 },
+      { name: "Ali", state: "offline", id: 2 },
+      { name: "Fırat", state: "busy", id: 3 }
+    ]
   }
 
-  clickHandler = (e) => {
-    console.log('Butona tıklandı')
-    console.log(e.target)
+  addMethod = (name)=>{
+    console.log('App modülü içerisinde', name)
+   
+    let id = this.state.idx;
+    let user = {
+      name:name,
+      state:'online',
+      id:id
+    }
+    let tUsers = [...this.state.users,user]
     this.setState({
-      state:'offline'
+      users:tUsers,
+      idx: id+1
     })
   }
-
-
-  changeHandler = (e) => {
-   // console.log(e.target)
-    this.setState({
-      state: e.target.value
-
-    })
-
-  }
-  changeNameHandler = (e) => {
-    this.setState({
-    name: e.target.value
-
-    })
-
-  }
-
- 
-
+  
   render() {
-    const {name, state} = this.state;
     return (
       <div>
-        <h1>Adı: {name}</h1>
-        <h3>Durum: {state}</h3>
-
-        <button onClick={this.clickHandler}>Durum değiştir</button>
-        
-        <select name="state" id="state" onChange={this.changeHandler} value={state}>
-          <option value="online">online</option>
-          <option value="offline">offline</option>
-          <option value="busy">busy</option>
-
-        </select>
-        <br/>
-       <input type="text" name="name" onChange={this.changeNameHandler}/>
+        <UserList users={this.state.users} />
+        <hr/>
+        <AddUser addMethod={this.addMethod}/>
       </div>
-   
-    )
+    );
   }
 }
 
 export default App
+
+
