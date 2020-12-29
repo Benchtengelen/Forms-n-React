@@ -31,7 +31,7 @@ class App extends React.Component {
   
   render() {
     return (
-      <div>
+      <div className="container-fluid">
         <UserList users={this.state.users} />
         <hr/>
         <AddUser addMethod={this.addMethod}/>
