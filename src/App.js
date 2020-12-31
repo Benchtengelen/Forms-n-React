@@ -1,45 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react'
 
-import AddUser from './components/AddUser'
-import UserList from './components/UserList'
+ class App extends Component {
+        constructor() {
+          super() 
+          this.state = {
+            firstName: "",
+            lastName: ""
+           }
+           this.handleChange = this.handleChange.bind(this)
 
-class App extends React.Component {
-  state = {
-    idx: 4,
-    users: [
-      { name: "Mehmet", state: "online", id: 1 },
-      { name: "Ali", state: "offline", id: 2 },
-      { name: "Fırat", state: "busy", id: 3 }
-    ]
-  }
+        }
+        handleChange(event) {
 
-  addMethod = (name)=>{
-    console.log('App modülü içerisinde', name)
-   
-    let id = this.state.idx;
-    let user = {
-      name:name,
-      state:'online',
-      id:id
-    }
-    let tUsers = [...this.state.users,user]
-    this.setState({
-      users:tUsers,
-      idx: id+1
-    })
-  }
-  
+            const {name, value} = event.target
+            this.setState({
+              [name]: value
+            })
+
+        }
+
+
+
   render() {
     return (
-      <div className="container-fluid">
-        <UserList users={this.state.users} />
-        <hr/>
-        <AddUser addMethod={this.addMethod}/>
-      </div>
-    );
+       <form>
+         <input 
+         type="text" 
+         value={this.state.firstname}
+         name="firstName"
+         placeholder="First Name"
+         onChange={this.handleChange}
+         />
+         <br/>
+         <input 
+         type="text"
+         value={this.state.lastName}
+         name="lastName"
+         placeholder="Last Name"
+         onChange={this.handleChange}
+         />
+         <h1>{this.state.firstName} {this.state.lastName}</h1>
+
+       </form>
+    )
   }
 }
 
 export default App
+
+
 
 
